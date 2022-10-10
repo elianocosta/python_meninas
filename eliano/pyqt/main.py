@@ -1,92 +1,42 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessageBox
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QWidget, QLabel, QLineEdit, QApplication,  QMessageBox
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtCore import QSize    
 
-def window():
-    app = QApplication(sys.argv)
-    widget = QWidget()
+class MainWindow(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
 
-## BUTTONS ###
-    button1 = QPushButton(widget)
-    button1.setText("1")
-    button1.move(220,400)
-    button1.clicked.connect(button1_clicked)
+        self.setMinimumSize(QSize(400, 500))    
+        self.setWindowTitle("SetWindowTitle") 
 
-    button2 = QPushButton(widget)
-    button2.setText("2")
-    button2.move(140,400)
-    button2.clicked.connect(button2_clicked)
-    
-    button3 = QPushButton(widget)
-    button3.setText("3")
-    button3.move(60,400)
-    button3.clicked.connect(button3_clicked)
+        self.nameLabel = QLabel(self)
+        self.nameLabel.setText('Name:')
+        self.line = QLineEdit(self)
 
-    button4 = QPushButton(widget)
-    button4.setText("4")
-    button4.move(220,375)
-    button4.clicked.connect(button4_clicked)
+        self.line.move(80, 20)
+        self.line.resize(200, 32)
+        self.nameLabel.move(20, 20)
 
-    button5 = QPushButton(widget)
-    button5.setText("5")
-    button5.move(140,375)
-    button5.clicked.connect(button5_clicked)
-    
-    button6 = QPushButton(widget)
-    button6.setText("6")
-    button6.move(60,375)
-    button6.clicked.connect(button6_clicked)
-    
-    button7 = QPushButton(widget)
-    button7.setText("7")
-    button7.move(220,375)
-    button7.clicked.connect(button7_clicked)
+        buttontotal = QPushButton('Total', self)
+        buttontotal.clicked.connect(self.clickMethod)
+        buttontotal.resize(100,32)
+        buttontotal.move(80, 60)   
+                
+        button0 = QPushButton()
+        button0.setText('0')
+        button0.move(140,325)
+        button0.clicked.connect(button0_clicked)
 
-    button8 = QPushButton(widget)
-    button8.setText("8")
-    button8.move(140,375)
-    button8.clicked.connect(button8_clicked)
-    
-    button9 = QPushButton(widget)
-    button9.setText("9")
-    button9.move(60,375)
-    button9.clicked.connect(button9_clicked)
-    
-    buttontotal = QPushButton(widget)
-    buttontotal.setText("total")
-    buttontotal.move(120,450)
-    buttontotal.clicked.connect(buttontotal_clicked)
-## FIM BUTTONS ##
-
-### GEOMETRY DO LAYOUT
-    widget.setGeometry(50,50,400,500)
-    widget.setWindowTitle("PyQT Calculadora")
-    widget.show()
-    sys.exit(app.exec_())
-
-# ## FUNCOES ##
-def button1_clicked():
-    return 1
-def button2_clicked():
-    return 2
-def button3_clicked():
-    return 3
-def button4_clicked():
-    return 4
-def button5_clicked():
-    return 5
-def button6_clicked():
-    return 6
-def button7_clicked():
-    return 7
-def button8_clicked():
-    return 8
-def button9_clicked():
-    return 9
-def buttontotal_clicked(button1_clicked):   
-    print(button1_clicked)
+    def clickMethod(self):
+        print('Your name: ' + self.line.text())
         
-## FIM FUNCAO ##
+    def button0_clicked():
+        return 0
+    
 if __name__ == "__main__":
-    window()
+    app = QtWidgets.QApplication(sys.argv)
+    mainWin = MainWindow()
+    mainWin.show()
+    sys.exit( app.exec_() )
